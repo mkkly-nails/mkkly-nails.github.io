@@ -398,9 +398,9 @@ const TARIFS = {
     { id: "gainage", nom: "Gainage", prix: 25 },
     { id: "americaine", nom: "Pose américaine couleur simple", prix: 30, options: true },
     { id: "gel", nom: "Gel couleur simple", prix: 40, options: true },
+    { id: "remplissage", nom: "Remplissage", prix: 35, options: true },
   ],
-  french: 5,              // option French (pose américaine et gel)
-  nailArt: 5,             // option nail art / 3D / chrome (pose américaine et gel)
+  deco: 5,                // option French / nail art / 3D / chrome (pose américaine, gel, remplissage)
   depose: {
     titre: "Dépose (pied/main) & suppléments",
     avecPose: 10,         // dépose + nouvelle pose
@@ -623,10 +623,7 @@ function renderTarifs() {
   let h = `<p class="label">${esc(TARIFS.titre)}</p><ul class="prices">`;
   TARIFS.prestations.forEach(p => {
     h += row(p.nom, p.prix + " €", p.options ? "head" : "");
-    if (p.options) {
-      h += row("French", "+" + TARIFS.french + " €", "sub");
-      h += row("Nail art / 3D / chrome", "+" + TARIFS.nailArt + " €", "sub");
-    }
+    if (p.options) h += row("French / nail art / 3D / chrome", "+" + TARIFS.deco + " €", "sub");
   });
   const d = TARIFS.depose;
   $("#tarifsBody").innerHTML = h + "</ul>" +
@@ -727,8 +724,7 @@ function total() {
   if (!p) return 0;
   let t = p.prix;
   if (p.zone !== "depose") {
-    if (p.options && B.french) t += TARIFS.french;
-    if (p.options && B.art) t += TARIFS.nailArt;
+    if (p.options && B.art) t += TARIFS.deco;
     t += (DEPOSE_OPTS.find(d => d.id === B.depose) || {}).prix || 0;
   }
   return t;
@@ -739,8 +735,7 @@ function serviceLabel() {
   if (!p) return "";
   let s = ZONE[p.zone] + " · " + p.nom;
   if (p.zone !== "depose") {
-    if (p.options && B.french) s += " + French";
-    if (p.options && B.art) s += " + nail art/3D/chrome";
+    if (p.options && B.art) s += " + French/nail art/3D/chrome";
     const d = DEPOSE_OPTS.find(x => x.id === B.depose);
     if (d && d.court) s += " · " + d.court;
   }
@@ -806,8 +801,7 @@ function renderSheet() {
     if (p && p.zone !== "depose") {
       if (p.options) {
         h += `<div class="q"><h3>Options</h3><div class="stack">`;
-        h += `<button type="button" class="opt box" aria-pressed="${B.french}" data-action="toggle-french"><span class="mark"></span><span class="t">French</span><span class="pr">+${TARIFS.french} €</span></button>`;
-        h += `<button type="button" class="opt box" aria-pressed="${B.art}" data-action="toggle-art"><span class="mark"></span><span class="t">Nail art / 3D / chrome<small>Décris ce que tu veux dans ton message</small></span><span class="pr">+${TARIFS.nailArt} €</span></button>`;
+        h += `<button type="button" class="opt box" aria-pressed="${B.art}" data-action="toggle-art"><span class="mark"></span><span class="t">French, nail art, 3D ou chrome<small>Décris ce que tu veux dans ton message</small></span><span class="pr">+${TARIFS.deco} €</span></button>`;
         h += `</div></div>`;
       }
       h += `<div class="q"><h3>Tu as déjà une pose ?</h3><p class="hint">Si oui, je la retire avant ta nouvelle pose.</p><div class="stack" role="radiogroup" aria-label="Dépose">`;
