@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECE7E1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Mkkly Nails">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="Réserve ta pose d'ongles avec Mkkly Nails : Gel X, French, semi-permanent pieds. Choisis ton créneau en ligne.">
+<title>Mkkly Nails</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout : une colonne mobile (max 560px), cartes grège arrondies sur un fond de pivoines blanches, réservation en feuille plein écran */
+  --paper:#ECE7E1;
+  --card:rgba(234,229,222,.86);
+  --white:#FAF8F5;
+  --ink:#5D534E;
+  --ink-soft:#877D77;
+  --ink-faint:#B4ABA5;
+  --line:rgba(93,83,78,.15);
+  --btn:#695D57;
+  --btn-ink:#FBF8F4;
+  --ok:#5F7D5B; --ok-bg:rgba(95,125,91,.13);
+  --warn:#9A7638; --warn-bg:rgba(176,138,72,.16);
+  --bad:#9C5650; --bad-bg:rgba(156,86,80,.12);
+  --f-display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
+  --f-script:"Pinyon Script","Snell Roundhand",cursive;
+  --f-body:"Jost",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --r-card:28px; --r:16px;
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;height:100%}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:300 17px/1.55 var(--f-body);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+a{color:inherit}
+img{max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--btn);outline-offset:3px;border-radius:10px}
+h1,h2,h3{text-wrap:balance;font-weight:400;margin:0}
+p{margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Fond pivoines */
+#petals{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;background:linear-gradient(180deg,#E6E0D8,#EEEAE4 45%,#E3DCD3)}
+
+.wrap{max-width:560px;margin:0 auto;padding-left:calc(16px + var(--safe-l));padding-right:calc(16px + var(--safe-r))}
+
+/* En-tête */
+.top{position:sticky;top:0;z-index:15;padding-top:var(--safe-t);background:rgba(236,231,225,.78);-webkit-backdrop-filter:saturate(1.2) blur(14px);backdrop-filter:saturate(1.2) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{display:flex;align-items:baseline;gap:2px;text-decoration:none;line-height:1}
+.brand b{font:400 24px var(--f-display);letter-spacing:.01em}
+.brand i{font:400 22px var(--f-script);font-style:normal;transform:translateY(4px)}
+.top a.ig{font-size:14px;letter-spacing:.06em;text-decoration:none;color:var(--ink-soft);padding:10px 0}
+
+/* Typo signature : serif + script décalée, comme sur les cartes */
+.lockup{display:flex;align-items:flex-end;justify-content:center;line-height:.86;margin:0}
+.lk-serif{font-family:var(--f-display);font-weight:400;letter-spacing:-.02em}
+.lk-script{font-family:var(--f-script);margin-left:-.12em;transform:translateY(.36em);white-space:nowrap}
+.hero .lk-serif{font-size:clamp(58px,19vw,92px)}
+.hero .lk-script{font-size:clamp(40px,13vw,62px)}
+.card .lk-serif{font-size:clamp(46px,14vw,62px)}
+.card .lk-script{font-size:clamp(32px,10vw,44px)}
+
+.label{font:600 13px/1.3 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.muted{color:var(--ink-soft)}
+
+/* Hero */
+.hero{padding:34px 0 8px;text-align:center;display:grid;gap:22px;justify-items:center}
+.hero .eyebrow{font:500 12px var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+.hero .lede{max-width:34ch;margin-top:18px;font-size:18px}
+.next{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:var(--card);font-size:15px;border:1px solid var(--line)}
+.next .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px var(--ok-bg);flex:none}
+.next.none .dot{background:var(--ink-faint);box-shadow:none}
+.demo-note{font-size:13px;color:var(--ink-soft);max-width:36ch}
+
+/* Boutons */
+.btn{appearance:none;-webkit-appearance:none;border:0;border-radius:999px;min-height:52px;padding:0 26px;font:500 16px/1 var(--f-body);letter-spacing:.04em;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;transition:transform .15s,background-color .2s,opacity .2s}
+.btn.primary{background:var(--btn);color:var(--btn-ink)}
+.btn.ghost{background:rgba(250,248,245,.6);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.small{min-height:40px;padding:0 16px;font-size:14px}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.38;pointer-events:none}
+.btn.armed{background:var(--bad);color:#fff;box-shadow:none}
+
+/* Sections & cartes */
+main{display:grid;gap:22px;padding-bottom:calc(112px + var(--safe-b))}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:18px 2px 12px}
+.sec-head h2{font:400 30px var(--f-display);letter-spacing:-.01em}
+.sec-head a{font-size:14px;color:var(--ink-soft);text-decoration:none}
+.card{background:var(--card);border-radius:var(--r-card);padding:30px 22px 26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 24px 44px -28px rgba(93,83,78,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.card .lockup{margin-bottom:34px}
+.card .label{text-align:center;margin:26px 0 6px}
+.card .label:first-of-type{margin-top:0}
+.prices{list-style:none;margin:0;padding:0}
+.prices li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.prices li:last-child{border-bottom:0}
+.prices .n{font:400 15px/1.35 var(--f-display);letter-spacing:.05em;text-transform:uppercase}
+.prices .p{font:italic 400 20px var(--f-display);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.card-foot{text-align:center;margin-top:26px;font-size:15px;color:var(--ink-soft)}
+.rules{list-style:none;margin:0;padding:0;display:grid;gap:12px;text-align:center}
+.rules li{font-size:17px}
+.card .script-sub{font:400 24px var(--f-script);text-align:center;margin:4px 0 14px}
+
+/* Galerie */
+.gallery{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px calc(16px + var(--safe-l)) 14px;margin:0 calc(-16px - var(--safe-l));scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gallery::-webkit-scrollbar{display:none}
+.shot{flex:none;width:62%;max-width:250px;aspect-ratio:3/4;border-radius:24px;overflow:hidden;scroll-snap-align:center;background:var(--card);position:relative;border:0;padding:0;box-shadow:0 18px 30px -22px rgba(93,83,78,.5)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot svg{width:100%;height:100%;display:block}
+.shot .tag{position:absolute;left:12px;bottom:12px;color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:rgba(250,248,245,.86);padding:5px 10px;border-radius:999px}
+.shot.ig-card{display:grid;place-items:center;text-align:center;padding:22px;text-decoration:none;background:var(--white)}
+.shot.ig-card span{font:400 30px/1.05 var(--f-display)}
+.shot.ig-card small{display:block;margin-top:12px;font-size:14px;color:var(--ink-soft)}
+
+/* Pied */
+.foot{text-align:center;padding:30px 0 10px;font-size:14px;color:var(--ink-soft);display:grid;gap:8px}
+.foot a{text-decoration:none}
+
+/* Barre de réservation fixe */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:16px calc(16px + var(--safe-r)) calc(12px + var(--safe-b)) calc(16px + var(--safe-l));background:linear-gradient(180deg,rgba(236,231,225,0),rgba(236,231,225,.94) 38%);display:flex;justify-content:center;pointer-events:none}
+.dock .btn{pointer-events:auto;width:100%;max-width:528px;box-shadow:0 14px 30px -14px rgba(93,83,78,.7)}
+
+/* Feuille de réservation */
+.sheet{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:var(--paper);transform:translateY(100%);visibility:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s linear .4s}
+.sheet.open{transform:none;visibility:visible;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.sheet-head{padding:calc(6px + var(--safe-t)) calc(8px + var(--safe-r)) 6px calc(8px + var(--safe-l));display:grid;grid-template-columns:48px 1fr 48px;align-items:center;border-bottom:1px solid var(--line)}
+.icon-btn{width:48px;height:48px;border:0;background:none;border-radius:50%;display:grid;place-items:center;color:var(--ink)}
+.icon-btn svg{width:22px;height:22px}
+.sheet-title{text-align:center;display:grid;gap:6px;justify-items:center}
+.sheet-title strong{font:400 19px var(--f-display)}
+.steps{display:flex;gap:6px}
+.steps span{width:22px;height:3px;border-radius:2px;background:var(--line);transition:background .25s}
+.steps span.on{background:var(--btn)}
+.sheet-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.sheet-inner{max-width:560px;margin:0 auto;padding:24px calc(18px + var(--safe-r)) 32px calc(18px + var(--safe-l));display:grid;gap:26px}
+.sheet-foot{border-top:1px solid var(--line);background:rgba(236,231,225,.96)}
+.sheet-foot .in{max-width:560px;margin:0 auto;padding:12px calc(16px + var(--safe-r)) calc(12px + var(--safe-b)) calc(16px + var(--safe-l));display:flex;align-items:center;gap:14px}
+.sheet-foot .btn{flex:1}
+.total{display:grid;line-height:1.15;min-width:84px}
+.total small{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.total strong{font:400 26px var(--f-display);font-variant-numeric:tabular-nums lining-nums}
+.total em{font-style:normal;font-size:12px;color:var(--ink-soft)}
+.q{display:grid;gap:12px}
+.q h3{font:400 24px var(--f-display)}
+.q .hint{font-size:15px;color:var(--ink-soft);margin-top:-6px}
+.group-label{font:600 12px var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:8px 2px 0}
+.opt{width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:62px;border-radius:var(--r);background:var(--white);border:1px solid var(--line);text-align:left;font-weight:400;font-size:16px;line-height:1.3;transition:border-color .15s,box-shadow .15s}
+.opt .t{flex:1}
+.opt .t small{display:block;font-size:13px;color:var(--ink-soft);font-weight:300}
+.opt .pr{font:italic 400 18px var(--f-display);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.opt .mark{width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid var(--ink-faint);display:grid;place-items:center;transition:border-color .15s}
+.opt .mark::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--btn);transform:scale(0);transition:transform .15s}
+.opt.box .mark{border-radius:7px}
+.opt.box .mark::after{border-radius:3px}
+.opt[aria-checked="true"],.opt[aria-pressed="true"]{border-color:var(--btn);box-shadow:inset 0 0 0 1px var(--btn)}
+.opt[aria-checked="true"] .mark,.opt[aria-pressed="true"] .mark{border-color:var(--btn)}
+.opt[aria-checked="true"] .mark::after,.opt[aria-pressed="true"] .mark::after{transform:scale(1)}
+.stack{display:grid;gap:10px}
+
+.days{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:4px 18px 8px;margin:0 -18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.days::-webkit-scrollbar{display:none}
+.day{flex:none;scroll-snap-align:start;width:70px;padding:12px 0 10px;border-radius:20px;background:var(--white);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1}
+.day small{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.day b{font:400 26px var(--f-display)}
+.day[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.day[aria-pressed="true"] small{color:rgba(251,248,244,.75)}
+.times{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.time{min-height:54px;border-radius:14px;border:1px solid var(--line);background:var(--white);font:400 19px var(--f-display);font-variant-numeric:tabular-nums lining-nums}
+.time[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.empty{padding:22px;border-radius:var(--r);background:var(--card);text-align:center;display:grid;gap:12px;justify-items:center}
+
+.field{display:grid;gap:8px}
+.field label{font-size:15px;font-weight:400}
+.field label span{color:var(--ink-soft);font-weight:300}
+.in-text{width:100%;min-height:52px;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--white);font:400 16px var(--f-body);-webkit-appearance:none;appearance:none;display:block}
+textarea.in-text{min-height:112px;resize:vertical;line-height:1.45}
+select.in-text{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23877D77' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.in-text:focus{outline:none;border-color:var(--btn);box-shadow:0 0 0 3px rgba(105,93,87,.15)}
+.recap{background:var(--card);border-radius:var(--r);padding:18px;display:grid;gap:8px}
+.recap .when{font:400 22px/1.2 var(--f-display)}
+.recap .what{font-size:15px}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;padding:4px 0}
+.check input{width:22px;height:22px;margin:1px 0 0;flex:none;accent-color:var(--btn)}
+
+.done{text-align:center;display:grid;gap:18px;justify-items:center;padding-top:14px}
+.done .lockup .lk-serif{font-size:clamp(46px,14vw,64px)}
+.done .lockup .lk-script{font-size:clamp(32px,10vw,44px)}
+.done .recap{text-align:left;width:100%;margin-top:18px}
+.todo{list-style:none;margin:0;padding:0;display:grid;gap:10px;text-align:left;width:100%}
+.todo li{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.todo li b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--btn);color:var(--btn-ink);display:grid;place-items:center;font:500 13px var(--f-body)}
+
+/* Visionneuse */
+.lightbox{position:fixed;inset:0;z-index:60;background:rgba(40,34,31,.92);display:grid;place-items:center;padding:calc(20px + var(--safe-t)) 16px calc(20px + var(--safe-b))}
+.lightbox figure{margin:0;max-height:100%;display:grid;gap:12px;justify-items:center;grid-template-rows:minmax(0,1fr) auto}
+.lightbox img{max-height:100%;min-height:0;border-radius:18px;object-fit:contain}
+.lightbox figcaption{font:italic 400 22px var(--f-display);color:#FBF8F4}
+.lightbox .icon-btn{position:absolute;top:calc(8px + var(--safe-t));right:8px;color:#fff}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);opacity:0;z-index:80;background:#3F3734;color:#FBF8F4;padding:12px 18px;border-radius:14px;font-size:15px;max-width:calc(100% - 32px);text-align:center;transition:opacity .25s,transform .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--bad)}
+
+/* ===== Espace pro ===== */
+.adm-top .wrap{height:auto;min-height:56px;padding-top:6px;padding-bottom:6px}
+.adm-top .acts{display:flex;gap:6px}
+.adm-hero{padding:22px 0 4px;display:grid;gap:6px}
+.adm-hero .lockup{justify-content:flex-start}
+.adm-hero .lk-serif{font-size:clamp(44px,13vw,58px)}
+.adm-hero .lk-script{font-size:clamp(30px,9vw,40px)}
+.adm-hero p{margin-top:12px;font-size:15px;color:var(--ink-soft)}
+.badge-demo{display:inline-flex;align-self:start;justify-self:start;font-size:12px;letter-spacing:.06em;padding:6px 12px;border-radius:999px;background:var(--warn-bg);color:var(--warn);margin-top:8px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{background:var(--card);border-radius:20px;padding:14px 16px;display:grid;gap:2px;border:0;text-align:left}
+.tile b{font:400 34px/1.05 var(--f-display);font-variant-numeric:tabular-nums lining-nums}
+.tile span{font-size:13px;color:var(--ink-soft);line-height:1.3}
+.tile.alert{box-shadow:inset 3px 0 0 var(--warn)}
+.tabs{position:sticky;top:calc(56px + var(--safe-t));z-index:10;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:999px;background:rgba(222,215,207,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.tabs button{min-height:42px;border:0;border-radius:999px;background:none;font-weight:400;font-size:15px}
+.tabs button[aria-selected="true"]{background:var(--white);box-shadow:0 2px 8px -3px rgba(93,83,78,.35);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--white);font-size:15px;font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.dayblock{display:grid;gap:10px}
+.dayblock h3{font:400 21px var(--f-display);margin:10px 2px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.dayblock h3 small{font:400 13px var(--f-body);color:var(--ink-soft)}
+.slot{background:var(--white);border-radius:18px;border:1px solid var(--line);padding:14px 16px;display:grid;grid-template-columns:62px 1fr;gap:4px 14px}
+.slot .hr{font:400 20px/1.1 var(--f-display);font-variant-numeric:tabular-nums lining-nums}
+.slot .hr small{display:block;font:300 12px var(--f-body);color:var(--ink-soft);margin-top:4px}
+.slot .bd{display:grid;gap:6px;min-width:0}
+.slot .who{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.slot .who strong{font-weight:500;font-size:17px}
+.slot .svc{font-size:15px;line-height:1.4}
+.slot .svc em{font-style:normal;font-family:var(--f-display);font-style:italic}
+.slot .msg{font-size:15px;line-height:1.45;padding:8px 12px;border-radius:12px;background:var(--paper);overflow-wrap:anywhere}
+.slot .ct{font-size:14px;color:var(--ink-soft);overflow-wrap:anywhere}
+.slot .ct a{color:var(--ink)}
+.slot .row-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.slot.free{background:rgba(250,248,245,.55);border-style:dashed}
+.slot.free .bd{flex-direction:row;display:flex;align-items:center;justify-content:space-between}
+.slot.past{opacity:.6}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;font-weight:500}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.reserve{background:var(--warn-bg);color:var(--warn)}
+.pill.confirme{background:var(--ok-bg);color:var(--ok)}
+.pill.libre{background:transparent;color:var(--ink-soft);padding-left:0}
+.panel{display:grid;gap:18px}
+.form-card{background:var(--card);border-radius:22px;padding:18px;display:grid;gap:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.add-row{display:flex;gap:8px}
+.add-row .in-text{flex:1}
+.photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.photo-grid figure{margin:0;position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:var(--card)}
+.photo-grid img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-grid button{position:absolute;right:6px;bottom:6px;min-height:32px;padding:0 10px;border-radius:999px;border:0;background:rgba(250,248,245,.92);font-size:13px}
+.photo-grid button.armed{background:var(--bad);color:#fff}
+.login{display:grid;gap:16px;padding-top:30px}
+.err{color:var(--bad);font-size:15px}
+.loading{padding:30px 0;text-align:center;color:var(--ink-soft)}
+
+@media (min-width:700px){
+  .shot{width:240px}
+  .hero{padding-top:60px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<!-- ===================== SITE CLIENTES ===================== -->
+<div id="public">
+  <header class="top" id="topbar">
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="Mkkly Nails, accueil"><b>Mkkly</b><i>Nails</i></a>
+      <a class="ig" id="igTop" href="https://www.instagram.com/mkkly_nails/" target="_blank" rel="noopener">@mkkly_nails</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="heroTitle">
+      <p class="eyebrow">Poses d'ongles · sur rendez-vous</p>
+      <h1 class="lockup" id="heroTitle"><span class="lk-serif">Réserve</span><span class="lk-script">ta pose</span></h1>
+      <p class="lede">Choisis ta prestation et ton créneau, c'est réglé en moins d'une minute.</p>
+      <p class="next none" id="nextSlot"><span class="dot"></span><span>Chargement des créneaux…</span></p>
+      <p class="demo-note" id="demoNote" hidden>Aperçu : créneaux et réservations d'exemple, enregistrés seulement sur cet appareil.</p>
+    </section>
+
+    <section aria-labelledby="galTitle">
+      <div class="sec-head"><h2 id="galTitle">Mes poses</h2><a id="igMore" href="https://www.instagram.com/mkkly_nails/" target="_blank" rel="noopener">Tout voir sur Instagram</a></div>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <section class="card" aria-labelledby="tarifsTitle" id="tarifs">
+      <h2 class="lockup" id="tarifsTitle"><span class="lk-serif">Tarifs</span><span class="lk-script">Poses</span></h2>
+      <div id="tarifsBody"></div>
+      <p class="card-foot">Plus d'informations en DM · @mkkly_nails</p>
+    </section>
+
+    <section class="card" aria-labelledby="infosTitle" id="infos">
+      <h2 class="lockup" id="infosTitle"><span class="lk-serif">Infos</span><span class="lk-script">Poses</span></h2>
+      <p class="label">Prise de rdv</p>
+      <p class="script-sub">après ta réservation, envoie-moi :</p>
+      <ul class="rules">
+        <li>la pose souhaitée avec une photo d'exemple</li>
+        <li>une photo de tes ongles naturels</li>
+        <li>la confirmation de ton rdv la veille<br><span class="muted">(sans confirmation, le rdv sera annulé)</span></li>
+      </ul>
+      <p class="label">Le jour du rdv</p>
+      <ul class="rules">
+        <li>pas d'accompagnateur autorisé</li>
+        <li>au-delà de 15 min de retard : rdv annulé</li>
+      </ul>
+      <p class="label">Paiement</p>
+      <ul class="rules">
+        <li>espèces / PayPal<br><span class="muted">(pour les espèces, merci de prévoir l'appoint)</span></li>
+      </ul>
+    </section>
+
+    <footer class="foot">
+      <a id="igFoot" href="https://www.instagram.com/mkkly_nails/" target="_blank" rel="noopener">Instagram · @mkkly_nails</a>
+      <a href="#admin">Espace pro</a>
+    </footer>
+  </main>
+
+  <div class="dock"><button class="btn primary" data-action="open-booking" type="button">Prendre rendez-vous</button></div>
+</div>
+
+<!-- Feuille de réservation -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="icon-btn" id="sheetBack" data-action="back" type="button" aria-label="Étape précédente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="sheet-title"><strong id="sheetTitle">Ta prestation</strong><div class="steps" id="sheetSteps"></div></div>
+    <button class="icon-btn" data-action="close-booking" type="button" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="sheet-body" id="sheetScroll"><div class="sheet-inner" id="sheetBody"></div></div>
+  <div class="sheet-foot" id="sheetFootWrap"><div class="in" id="sheetFoot"></div></div>
+</div>
+
+<!-- ===================== ESPACE PRO ===================== -->
+<div id="admin" hidden>
+  <header class="top adm-top">
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="Retour au site"><b>Mkkly</b><i>Nails</i></a>
+      <div class="acts" id="admActs"></div>
+    </div>
+  </header>
+  <main class="wrap" id="admMain"></main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* =========================================================
+   RÉGLAGES — c'est la seule partie à modifier
+   ========================================================= */
+const CONFIG = {
+  // Colle ici l'URL et la clé "anon public" de ton projet Supabase (voir LISEZMOI.md).
+  // Laissées vides, le site tourne en mode aperçu (données sur ton téléphone seulement).
+  SUPABASE_URL: "",
+  SUPABASE_ANON_KEY: "",
+  INSTAGRAM: "mkkly_nails",
+  BUCKET: "poses",
+  TZ: "Europe/Paris",
+};
+
+// Tes tarifs : change un prix ici et il change partout (carte + réservation).
+const TARIFS = {
+  mains: {
+    titre: "Beauté des mains",
+    poses: [ { id: "mains-gelx", nom: "Gel X couleur simple", prix: 40 } ],
+    french: 5,
+    nailArt: true,        // Nail art / 3D / chrome : sur devis
+  },
+  pieds: {
+    titre: "Beauté des pieds",
+    poses: [
+      { id: "pieds-semi", nom: "Vernis semi-permanent ongles naturels", prix: 20 },
+      { id: "pieds-gelx", nom: "Gel X", prix: 25 },
+    ],
+    french: 5,
+    nailArt: false,
+  },
+  depose: {
+    titre: "Dépose (pied/main) & suppléments",
+    avecPose: 5,          // dépose d'une pose faite par toi + nouvelle pose
+    exterieure: 10,       // dépose d'une pose faite ailleurs
+    simple: 15,           // dépose sans nouvelle pose
+  },
+};
+// Tes poses (photos dans le dossier poses/). Ajoute ou retire une ligne pour changer la galerie.
+const POSES = [
+  { img: "poses/09-preferee-perles.jpg", nom: "Ma pose préférée" },
+  { img: "poses/08-rose-chromee.jpg", nom: "Rose chromée" },
+  { img: "poses/01-pois-rose.jpg", nom: "À pois" },
+  { img: "poses/02-detaillee-strass.jpg", nom: "Détaillée strass" },
+  { img: "poses/03-amande-detaillee.jpg", nom: "Amande détaillée" },
+  { img: "poses/04-stiletto-rose.jpg", nom: "Stiletto long rose" },
+  { img: "poses/05-amande-french-pale.jpg", nom: "Amande french pâle" },
+  { img: "poses/06-marron-petits-points.jpg", nom: "Marron à petits points" },
+  { img: "poses/07-rose-pale.jpg", nom: "Rose pâle simple" },
+  { img: "poses/10-preferee-perles-2.jpg", nom: "Perles & dorures" },
+];
+/* ========================================================= */
+
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
+const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+const TZ = CONFIG.TZ;
+const F = {
+  key: new Intl.DateTimeFormat("fr-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }),
+  time: new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }),
+  long: new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, weekday: "long", day: "numeric", month: "long" }),
+  wd: new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, weekday: "short" }),
+  num: new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, day: "numeric" }),
+  mon: new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, month: "short" }),
+};
+const dayKey = d => F.key.format(new Date(d));
+const hhmm = d => F.time.format(new Date(d)).replace(":", "h");
+const longDay = d => cap(F.long.format(new Date(d)));
+const endOf = s => new Date(new Date(s.starts_at).getTime() + (s.duration_min || 120) * 60000);
+const byStart = (a, b) => new Date(a.starts_at) - new Date(b.starts_at);
+const IG_URL = "https://www.instagram.com/" + CONFIG.INSTAGRAM + "/";
+const IG_DM = "https://ig.me/m/" + CONFIG.INSTAGRAM;
+
+function toast(msg, kind = "") {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.className = "toast show " + kind;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => (t.className = "toast"), 3400);
+}
+
+// Bouton « appuie deux fois » à la place des fenêtres de confirmation
+function twoTap(btn, label, fn) {
+  if (btn.dataset.armed) { delete btn.dataset.armed; btn.classList.remove("armed"); fn(); return; }
+  btn.dataset.armed = "1";
+  btn.dataset.old = btn.textContent;
+  btn.textContent = label;
+  btn.classList.add("armed");
+  setTimeout(() => {
+    if (btn.isConnected && btn.dataset.armed) { delete btn.dataset.armed; btn.textContent = btn.dataset.old; btn.classList.remove("armed"); }
+  }, 3500);
+}
+
+/* ---------------- Données ---------------- */
+let sb = null;
+if (CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY && window.supabase) {
+  sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+}
+const LIVE = !!sb;
+
+const Demo = {
+  key: "mkkly-demo-v1",
+  state: null,
+  load() {
+    try { const s = localStorage.getItem(this.key); if (s) { this.state = JSON.parse(s); return; } } catch (e) {}
+    this.state = this.seed();
+    this.save();
+  },
+  save() { try { localStorage.setItem(this.key, JSON.stringify(this.state)); return true; } catch (e) { return false; } },
+  seed() {
+    const slots = [], bookings = [];
+    const now = new Date();
+    for (let i = 1; i <= 16; i++) {
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+      const wd = d.getDay();
+      if (wd === 0 || wd === 1) continue;
+      const times = wd === 6 ? ["09:30", "13:00"] : ["10:00", "14:00", "17:30"];
+      times.forEach(t => {
+        const [h, m] = t.split(":").map(Number);
+        slots.push({ id: uid(), starts_at: new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, m).toISOString(), duration_min: 120 });
+      });
+    }
+    const ts = new Date().toISOString();
+    if (slots[0]) bookings.push({ id: uid(), slot_id: slots[0].id, first_name: "Inès (exemple)", contact: "@ines.exemple", service: "Mains · Gel X couleur simple + French", total: 45, devis: false, message: "Forme amande, longueur moyenne, nude rosé 🤍", status: "confirme", created_at: ts });
+    if (slots[4]) bookings.push({ id: uid(), slot_id: slots[4].id, first_name: "Sarah (exemple)", contact: "06 12 34 56 78", service: "Pieds · Gel X · dépose extérieure", total: 35, devis: false, message: "", status: "reserve", created_at: ts });
+    if (slots[7]) bookings.push({ id: uid(), slot_id: slots[7].id, first_name: "Lina (exemple)", contact: "", service: "Mains · Gel X couleur simple + nail art/3D/chrome (devis)", total: 40, devis: true, message: "Chrome argenté sur 2 ongles", status: "reserve", created_at: ts });
+    return { slots, bookings, photos: [] };
+  },
+};
+if (!LIVE) Demo.load();
+
+const api = {
+  async openSlots() {
+    if (LIVE) {
+      const { data, error } = await sb.rpc("creneaux_libres");
+      if (error) throw error;
+      return data || [];
+    }
+    const taken = new Set(Demo.state.bookings.filter(b => b.status !== "annule").map(b => b.slot_id));
+    const now = Date.now();
+    return Demo.state.slots.filter(s => !taken.has(s.id) && new Date(s.starts_at).getTime() > now).sort(byStart);
+  },
+  async book(b) {
+    if (LIVE) {
+      const { error } = await sb.from("bookings").insert({ ...b, status: "reserve" });
+      if (error) { if (error.code === "23505" || error.code === "42501") throw new Error("TAKEN"); throw error; }
+      return;
+    }
+    if (Demo.state.bookings.some(x => x.slot_id === b.slot_id && x.status !== "annule")) throw new Error("TAKEN");
+    Demo.state.bookings.push({ ...b, id: uid(), status: "reserve", created_at: new Date().toISOString() });
+    Demo.save();
+  },
+  async photos() {
+    if (LIVE) {
+      const { data, error } = await sb.storage.from(CONFIG.BUCKET).list("", { limit: 200, sortBy: { column: "created_at", order: "desc" } });
+      if (error) throw error;
+      return (data || []).filter(f => f.name && !f.name.startsWith(".")).map(f => ({ name: f.name, url: sb.storage.from(CONFIG.BUCKET).getPublicUrl(f.name).data.publicUrl }));
+    }
+    return Demo.state.photos.slice();
+  },
+  async session() {
+    if (!LIVE) return { demo: true };
+    const { data } = await sb.auth.getSession();
+    return data.session;
+  },
+  async signIn(email, password) {
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+  },
+  async signOut() { if (LIVE) await sb.auth.signOut(); },
+  async agenda(fromISO) {
+    if (LIVE) {
+      const { data, error } = await sb.from("slots")
+        .select("id,starts_at,duration_min,bookings(id,first_name,contact,service,total,devis,message,status,created_at)")
+        .gte("starts_at", fromISO).order("starts_at");
+      if (error) throw error;
+      return (data || []).map(s => ({ id: s.id, starts_at: s.starts_at, duration_min: s.duration_min, booking: (s.bookings || []).find(b => b.status !== "annule") || null }));
+    }
+    const from = new Date(fromISO).getTime();
+    return Demo.state.slots.filter(s => new Date(s.starts_at).getTime() >= from).sort(byStart)
+      .map(s => ({ ...s, booking: Demo.state.bookings.find(b => b.slot_id === s.id && b.status !== "annule") || null }));
+  },
+  async addSlots(list) {
+    if (LIVE) {
+      const { error } = await sb.from("slots").upsert(list, { onConflict: "starts_at", ignoreDuplicates: true });
+      if (error) throw error;
+      return;
+    }
+    const have = new Set(Demo.state.slots.map(s => new Date(s.starts_at).getTime()));
+    list.forEach(s => { if (!have.has(new Date(s.starts_at).getTime())) Demo.state.slots.push({ id: uid(), ...s }); });
+    Demo.save();
+  },
+  async deleteSlot(id) {
+    if (LIVE) { const { error } = await sb.from("slots").delete().eq("id", id); if (error) throw error; return; }
+    Demo.state.slots = Demo.state.slots.filter(s => s.id !== id);
+    Demo.state.bookings = Demo.state.bookings.filter(b => b.slot_id !== id);
+    Demo.save();
+  },
+  async setStatus(id, status) {
+    if (LIVE) { const { error } = await sb.from("bookings").update({ status }).eq("id", id); if (error) throw error; return; }
+    const b = Demo.state.bookings.find(x => x.id === id);
+    if (b) b.status = status;
+    Demo.save();
+  },
+  async uploadPhoto(blob) {
+    if (LIVE) {
+      const name = Date.now() + "-" + Math.random().toString(36).slice(2, 7) + ".jpg";
+      const { error } = await sb.storage.from(CONFIG.BUCKET).upload(name, blob, { contentType: "image/jpeg", cacheControl: "31536000" });
+      if (error) throw error;
+      return;
+    }
+    const url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+    Demo.state.photos.unshift({ name: uid(), url });
+    if (!Demo.save()) { Demo.state.photos.shift(); throw new Error("FULL"); }
+  },
+  async deletePhoto(name) {
+    if (LIVE) { const { error } = await sb.storage.from(CONFIG.BUCKET).remove([name]); if (error) throw error; return; }
+    Demo.state.photos = Demo.state.photos.filter(p => p.name !== name);
+    Demo.save();
+  },
+};
+
+// Réduit les photos avant envoi (plus rapide, moins de place)
+async function shrink(file, max, q) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const r = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.naturalWidth * r);
+    c.height = Math.round(img.naturalHeight * r);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    return await new Promise(res => c.toBlob(res, "image/jpeg", q));
+  } finally { URL.revokeObjectURL(url); }
+}
+
+/* ---------------- Tarifs & prestations ---------------- */
+const PRESTAS = [
+  ...TARIFS.mains.poses.map(p => ({ ...p, zone: "mains" })),
+  ...TARIFS.pieds.poses.map(p => ({ ...p, zone: "pieds" })),
+  { id: "depose-simple", nom: "Dépose simple (sans pose derrière)", prix: TARIFS.depose.simple, zone: "depose" },
+];
+const DEPOSE_OPTS = [
+  { id: "aucune", nom: "Non, ongles nus", court: "", prix: 0 },
+  { id: "maison", nom: "Oui, une pose faite par moi", court: "dépose + pose", prix: TARIFS.depose.avecPose },
+  { id: "ext", nom: "Oui, une pose faite ailleurs", court: "dépose extérieure", prix: TARIFS.depose.exterieure },
+];
+const ZONE = { mains: "Mains", pieds: "Pieds", depose: "Dépose" };
+const findPresta = id => PRESTAS.find(p => p.id === id);
+
+function renderTarifs() {
+  const row = (n, p) => `<li><span class="n">${esc(n)}</span><span class="p">${esc(p)}</span></li>`;
+  const block = z => {
+    const t = TARIFS[z];
+    let h = `<p class="label">${esc(t.titre)}</p><ul class="prices">`;
+    t.poses.forEach(p => (h += row(p.nom, p.prix + " €")));
+    if (t.french) h += row("French", "+" + t.french + " €");
+    if (t.nailArt) h += row("Nail art / 3D / chrome", "sur devis");
+    return h + "</ul>";
+  };
+  const d = TARIFS.depose;
+  $("#tarifsBody").innerHTML = block("mains") + block("pieds") +
+    `<p class="label">${esc(d.titre)}</p><ul class="prices">` +
+    row("Dépose + pose", "+" + d.avecPose + " €") +
+    row("Dépose extérieure", "+" + d.exterieure + " €") +
+    row("Dépose simple (sans pose derrière)", d.simple + " €") + "</ul>";
+}
+
+/* ---------------- Fond pivoines (canvas, dessiné une fois) ---------------- */
+function drawPetals() {
+  const c = $("#petals");
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = window.innerWidth, h = window.innerHeight;
+  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  const ctx = c.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+  const flower = (cx, cy, R, n) => {
+    for (let k = 0; k < 3; k++) {
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2 + k * 0.5 + rnd() * 0.3;
+        const r = R * (1 - k * 0.28);
+        const px = cx + Math.cos(a) * r * 0.45, py = cy + Math.sin(a) * r * 0.45;
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.rotate(a + Math.PI / 2);
+        const g = ctx.createRadialGradient(0, -r * 0.1, 0, 0, 0, r * 0.62);
+        g.addColorStop(0, "rgba(255,255,255,0.78)");
+        g.addColorStop(0.55, "rgba(252,250,247,0.42)");
+        g.addColorStop(1, "rgba(240,235,229,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r * 0.42, r * 0.62, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+    const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.35);
+    core.addColorStop(0, "rgba(214,205,194,0.35)");
+    core.addColorStop(1, "rgba(214,205,194,0)");
+    ctx.fillStyle = core;
+    ctx.beginPath(); ctx.arc(cx, cy, R * 0.35, 0, Math.PI * 2); ctx.fill();
+  };
+  const R = Math.max(w, h) * 0.42;
+  flower(w * 0.08, h * 0.12, R, 9);
+  flower(w * 0.98, h * 0.55, R * 0.9, 8);
+  flower(w * 0.2, h * 1.02, R * 0.85, 8);
+}
+
+/* ---------------- Galerie ---------------- */
+const PUB = { slots: null, photos: [] };
+
+function galleryItems() {
+  return [
+    ...PUB.photos.map(p => ({ url: p.url, nom: "" })),
+    ...POSES.map(p => ({ url: p.img, nom: p.nom })),
+  ];
+}
+
+function renderGallery() {
+  const items = galleryItems();
+  $("#gallery").innerHTML = items.map((p, i) => `<button class="shot" type="button" data-action="zoom" data-i="${i}" aria-label="Voir en grand${p.nom ? " : " + esc(p.nom) : ""}"><img src="${esc(p.url)}" alt="${esc(p.nom ? "Pose Gel X " + p.nom.toLowerCase() : "Pose d'ongles Mkkly Nails")}" loading="${i < 3 ? "eager" : "lazy"}" decoding="async">${p.nom ? `<span class="tag">${esc(p.nom)}</span>` : ""}</button>`).join("") +
+    `<a class="shot ig-card" href="${IG_URL}" target="_blank" rel="noopener"><div><span>Plus de poses</span><small>sur Instagram →</small></div></a>`;
+}
+
+function openLightbox(url, nom) {
+  const lb = document.createElement("div");
+  lb.className = "lightbox";
+  lb.innerHTML = `<figure><img src="${esc(url)}" alt="${esc(nom || "Pose d'ongles")} en grand">${nom ? `<figcaption>${esc(nom)}</figcaption>` : ""}</figure><button class="icon-btn" type="button" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
+  lb.addEventListener("click", () => lb.remove());
+  document.body.appendChild(lb);
+}
+
+function renderNext() {
+  const el = $("#nextSlot");
+  const txt = el.lastElementChild;
+  if (PUB.slots === null) { el.className = "next none"; txt.textContent = "Créneaux indisponibles pour le moment, écris-moi en DM"; return; }
+  if (!PUB.slots.length) { el.className = "next none"; txt.textContent = "Aucun créneau libre pour l'instant"; return; }
+  const s = PUB.slots[0];
+  el.className = "next";
+  txt.textContent = "Prochain créneau : " + cap(F.wd.format(new Date(s.starts_at))) + " " + F.num.format(new Date(s.starts_at)) + " " + F.mon.format(new Date(s.starts_at)) + " à " + hhmm(s.starts_at);
+}
+
+async function loadPublic() {
+  try { PUB.slots = await api.openSlots(); } catch (e) { console.error(e); PUB.slots = null; }
+  renderNext();
+  try { PUB.photos = await api.photos(); } catch (e) { console.error(e); PUB.photos = []; }
+  renderGallery();
+}
+
+/* ---------------- Réservation ---------------- */
+const B = { step: 1, presta: null, french: false, art: false, depose: "aucune", day: null, slot: null, slots: null, loading: false, prenom: "", contact: "", message: "", rules: false, sending: false, done: null };
+
+function total() {
+  const p = findPresta(B.presta);
+  if (!p) return 0;
+  let t = p.prix;
+  if (p.zone !== "depose") {
+    if (B.french) t += TARIFS[p.zone].french;
+    t += (DEPOSE_OPTS.find(d => d.id === B.depose) || {}).prix || 0;
+  }
+  return t;
+}
+const hasDevis = () => { const p = findPresta(B.presta); return !!(p && p.zone === "mains" && B.art); };
+function serviceLabel() {
+  const p = findPresta(B.presta);
+  if (!p) return "";
+  let s = ZONE[p.zone] + " · " + p.nom;
+  if (p.zone !== "depose") {
+    if (B.french) s += " + French";
+    if (hasDevis()) s += " + nail art/3D/chrome (devis)";
+    const d = DEPOSE_OPTS.find(x => x.id === B.depose);
+    if (d && d.court) s += " · " + d.court;
+  }
+  return s;
+}
+
+function openBooking() {
+  const sh = $("#sheet");
+  if (B.step === 4) Object.assign(B, { step: 1, slot: null, day: null, message: "", rules: false, done: null });
+  sh.classList.add("open");
+  sh.setAttribute("aria-hidden", "false");
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+  renderSheet();
+  setTimeout(() => { const f = sh.querySelector(".sheet-head .icon-btn:last-child"); f && f.focus({ preventScroll: true }); }, 50);
+}
+function closeBooking() {
+  const sh = $("#sheet");
+  sh.classList.remove("open");
+  sh.setAttribute("aria-hidden", "true");
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+  if (location.hash === "#reserver") history.replaceState(null, "", location.pathname + location.search);
+  if (B.step === 4) loadPublic();
+}
+
+async function loadSlotsForBooking() {
+  B.loading = true; renderSheet();
+  try { B.slots = await api.openSlots(); } catch (e) { console.error(e); B.slots = null; }
+  B.loading = false;
+  if (B.slot && B.slots && !B.slots.some(s => s.id === B.slot)) B.slot = null;
+  if (B.slots && B.slots.length && (!B.day || !B.slots.some(s => dayKey(s.starts_at) === B.day))) B.day = dayKey(B.slots[0].starts_at);
+  renderSheet();
+}
+
+function goStep(n) {
+  B.step = n;
+  $("#sheetScroll").scrollTop = 0;
+  if (n === 2) loadSlotsForBooking(); else renderSheet();
+}
+
+function footTotal() {
+  if (!B.presta) return `<div class="total"><small>Total</small><strong>—</strong></div>`;
+  return `<div class="total"><small>Total estimé</small><strong>${total()} €</strong>${hasDevis() ? "<em>+ devis nail art</em>" : ""}</div>`;
+}
+
+function renderSheet() {
+  const body = $("#sheetBody"), foot = $("#sheetFoot");
+  const titles = { 1: "Ta prestation", 2: "Ton créneau", 3: "Tes infos", 4: "C'est réservé" };
+  $("#sheetTitle").textContent = titles[B.step];
+  $("#sheetSteps").innerHTML = [1, 2, 3].map(i => `<span class="${i <= B.step ? "on" : ""}"></span>`).join("");
+  $("#sheetSteps").hidden = B.step === 4;
+  $("#sheetBack").style.visibility = (B.step === 1 || B.step === 4) ? "hidden" : "visible";
+  $("#sheetFootWrap").hidden = false;
+
+  if (B.step === 1) {
+    const p = findPresta(B.presta);
+    const opt = (x) => `<button type="button" class="opt" role="radio" aria-checked="${B.presta === x.id}" data-action="pick-presta" data-id="${x.id}"><span class="mark"></span><span class="t">${esc(x.nom)}</span><span class="pr">${x.prix} €</span></button>`;
+    let h = `<div class="q"><h3>Qu'est-ce qu'on fait ?</h3><div class="stack" role="radiogroup" aria-label="Prestation">`;
+    h += `<p class="group-label">Mains</p>` + PRESTAS.filter(x => x.zone === "mains").map(opt).join("");
+    h += `<p class="group-label">Pieds</p>` + PRESTAS.filter(x => x.zone === "pieds").map(opt).join("");
+    h += `<p class="group-label">Dépose seule</p>` + PRESTAS.filter(x => x.zone === "depose").map(opt).join("");
+    h += `</div></div>`;
+    if (p && p.zone !== "depose") {
+      const z = TARIFS[p.zone];
+      h += `<div class="q"><h3>Options</h3><div class="stack">`;
+      h += `<button type="button" class="opt box" aria-pressed="${B.french}" data-action="toggle-french"><span class="mark"></span><span class="t">French</span><span class="pr">+${z.french} €</span></button>`;
+      if (z.nailArt) h += `<button type="button" class="opt box" aria-pressed="${B.art}" data-action="toggle-art"><span class="mark"></span><span class="t">Nail art / 3D / chrome<small>Prix sur devis, décris-le dans ton message</small></span><span class="pr">devis</span></button>`;
+      h += `</div></div>`;
+      h += `<div class="q"><h3>Tu as déjà une pose ?</h3><p class="hint">Si oui, je la retire avant ta nouvelle pose.</p><div class="stack" role="radiogroup" aria-label="Dépose">`;
+      h += DEPOSE_OPTS.map(d => `<button type="button" class="opt" role="radio" aria-checked="${B.depose === d.id}" data-action="pick-depose" data-id="${d.id}"><span class="mark"></span><span class="t">${esc(d.nom)}</span><span class="pr">${d.prix ? "+" + d.prix + " €" : ""}</span></button>`).join("");
+      h += `</div></div>`;
+    }
+    body.innerHTML = h;
+    foot.innerHTML = footTotal() + `<button class="btn primary" type="button" data-action="next" ${B.presta ? "" : "disabled"}>Choisir mon créneau</button>`;
+    return;
+  }
+
+  if (B.step === 2) {
+    let h = "";
+    if (B.loading && !B.slots) {
+      h = `<p class="loading">Je regarde mes disponibilités…</p>`;
+    } else if (B.slots === null) {
+      h = `<div class="empty"><p>Impossible de charger les créneaux. Vérifie ta connexion et réessaie.</p><button class="btn ghost small" type="button" data-action="reload-slots">Réessayer</button></div>`;
+    } else if (!B.slots.length) {
+      h = `<div class="empty"><p>Plus aucun créneau libre pour le moment.</p><p class="muted">Écris-moi sur Instagram, je te préviens dès que j'en ouvre.</p><a class="btn ghost small" href="${IG_DM}" target="_blank" rel="noopener">M'écrire sur Instagram</a></div>`;
+    } else {
+      const days = [];
+      B.slots.forEach(s => { const k = dayKey(s.starts_at); if (!days.find(d => d.k === k)) days.push({ k, d: s.starts_at }); });
+      h += `<div class="q"><h3>Quel jour ?</h3><div class="days" role="group" aria-label="Jours disponibles">`;
+      h += days.map(d => { const dt = new Date(d.d); return `<button type="button" class="day" aria-pressed="${B.day === d.k}" data-action="pick-day" data-k="${d.k}" aria-label="${esc(longDay(dt))}"><small>${esc(F.wd.format(dt).replace(".", ""))}</small><b>${esc(F.num.format(dt))}</b><small>${esc(F.mon.format(dt).replace(".", ""))}</small></button>`; }).join("");
+      h += `</div></div>`;
+      const list = B.slots.filter(s => dayKey(s.starts_at) === B.day);
+      h += `<div class="q"><h3>${esc(B.day ? longDay(list[0] ? list[0].starts_at : B.day) : "")}</h3><div class="times" role="group" aria-label="Heures disponibles">`;
+      h += list.map(s => `<button type="button" class="time" aria-pressed="${B.slot === s.id}" data-action="pick-slot" data-id="${s.id}">${hhmm(s.starts_at)}</button>`).join("");
+      h += `</div></div>`;
+    }
+    body.innerHTML = h;
+    foot.innerHTML = footTotal() + `<button class="btn primary" type="button" data-action="next" ${B.slot ? "" : "disabled"}>Continuer</button>`;
+    const sel = body.querySelector('.day[aria-pressed="true"]');
+    if (sel) sel.scrollIntoView({ block: "nearest", inline: "center" });
+    return;
+  }
+
+  if (B.step === 3) {
+    const s = (B.slots || []).find(x => x.id === B.slot);
+    let h = `<div class="recap"><span class="label">Ton rendez-vous</span><span class="when">${s ? esc(longDay(s.starts_at)) + " à " + hhmm(s.starts_at) : ""}</span><span class="what">${esc(serviceLabel())}</span><span class="what"><b>${total()} €</b>${hasDevis() ? " + nail art sur devis" : ""} · espèces ou PayPal</span></div>`;
+    h += `<div class="field"><label for="f-prenom">Prénom</label><input class="in-text" id="f-prenom" name="given-name" autocomplete="given-name" autocapitalize="words" maxlength="40" value="${esc(B.prenom)}" enterkeyhint="next"></div>`;
+    h += `<div class="field"><label for="f-contact">Instagram ou téléphone <span>(optionnel, pour te recontacter)</span></label><input class="in-text" id="f-contact" maxlength="80" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="@toncompte ou 06…" value="${esc(B.contact)}" enterkeyhint="next"></div>`;
+    h += `<div class="field"><label for="f-message">Un message <span>(optionnel)</span></label><textarea class="in-text" id="f-message" maxlength="500" placeholder="Forme, longueur, couleur, inspiration…">${esc(B.message)}</textarea></div>`;
+    h += `<label class="check" for="f-rules"><input type="checkbox" id="f-rules" ${B.rules ? "checked" : ""}><span>J'ai lu les infos : je confirme mon rdv la veille, je viens sans accompagnateur, et au-delà de 15 min de retard le rdv est annulé.</span></label>`;
+    body.innerHTML = h;
+    foot.innerHTML = footTotal() + `<button class="btn primary" type="button" data-action="submit" id="submitBtn">${B.sending ? "Envoi…" : "Réserver"}</button>`;
+    updateSubmit();
+    return;
+  }
+
+  if (B.step === 4) {
+    const d = B.done;
+    body.innerHTML = `<div class="done">
+      <h2 class="lockup"><span class="lk-serif">Merci</span><span class="lk-script">${esc(d.prenom)}</span></h2>
+      <div class="recap"><span class="label">C'est noté</span><span class="when">${esc(longDay(d.starts_at))} à ${hhmm(d.starts_at)}</span><span class="what">${esc(d.service)}</span><span class="what"><b>${d.total} €</b>${d.devis ? " + nail art sur devis" : ""}</span></div>
+      <ul class="todo">
+        <li><b>1</b><span>Envoie-moi en DM ta photo d'inspiration et une photo de tes ongles naturels.</span></li>
+        <li><b>2</b><span>Confirme ton rdv la veille, sinon il sera annulé.</span></li>
+        <li><b>3</b><span>Le jour J : viens seule, à l'heure, et prévois l'appoint si tu paies en espèces.</span></li>
+      </ul>
+      <a class="btn primary" href="${IG_DM}" target="_blank" rel="noopener" style="width:100%">M'envoyer mes photos en DM</a>
+    </div>`;
+    foot.innerHTML = `<button class="btn ghost" type="button" data-action="close-booking">Retour au site</button>`;
+  }
+}
+
+function updateSubmit() {
+  const btn = $("#submitBtn");
+  if (btn) btn.disabled = B.sending || !B.prenom.trim() || !B.rules;
+}
+
+async function submitBooking() {
+  if (B.sending) return;
+  B.prenom = ($("#f-prenom")?.value || B.prenom).trim();
+  if (!B.prenom) { toast("Indique ton prénom", "bad"); return; }
+  if (!B.rules) { toast("Coche la case des infos pour valider", "bad"); return; }
+  const s = (B.slots || []).find(x => x.id === B.slot);
+  if (!s) { goStep(2); return; }
+  B.sending = true; renderSheet();
+  const payload = { slot_id: s.id, first_name: B.prenom.slice(0, 40), contact: B.contact.trim().slice(0, 80) || null, service: serviceLabel().slice(0, 160), total: total(), devis: hasDevis(), message: B.message.trim().slice(0, 500) || null };
+  try {
+    await api.book(payload);
+    B.done = { prenom: B.prenom, starts_at: s.starts_at, service: payload.service, total: payload.total, devis: payload.devis };
+    B.sending = false;
+    B.step = 4;
+    $("#sheetScroll").scrollTop = 0;
+    renderSheet();
+  } catch (e) {
+    B.sending = false;
+    if (e.message === "TAKEN") {
+      toast("Oups, ce créneau vient d'être pris. Choisis-en un autre.", "bad");
+      B.slot = null;
+      goStep(2);
+    } else {
+      console.error(e);
+      toast("La réservation n'est pas passée. Vérifie ta connexion et réessaie.", "bad");
+      renderSheet();
+    }
+  }
+}
+
+/* ---------------- Espace pro ---------------- */
+const ADM = { tab: "agenda", filter: "tous", rows: [], photos: [], times: new Set(), customTimes: [], loading: true, err: "" };
+const PRESET_TIMES = ["09:00", "10:00", "11:30", "13:00", "14:00", "15:30", "17:00", "18:30"];
+
+function startOfToday() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+function ymd(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+
+async function showAdmin() {
+  $("#public").hidden = true;
+  $("#admin").hidden = false;
+  if ($("#sheet").classList.contains("open")) closeBooking();
+  window.scrollTo(0, 0);
+  document.title = "Mon agenda · Mkkly Nails";
+  const s = await api.session();
+  if (!s) { renderLogin(); return; }
+  ADM.loading = true; renderAdmin();
+  await refreshAdmin();
+}
+
+async function refreshAdmin() {
+  try {
+    ADM.rows = await api.agenda(startOfToday().toISOString());
+    ADM.err = "";
+  } catch (e) { console.error(e); ADM.err = "Impossible de charger l'agenda. Vérifie ta connexion."; }
+  try { ADM.photos = await api.photos(); } catch (e) { ADM.photos = []; }
+  ADM.loading = false;
+  renderAdmin();
+}
+
+function renderLogin(msg = "") {
+  $("#admActs").innerHTML = `<a class="btn ghost small" href="#">Voir le site</a>`;
+  $("#admMain").innerHTML = `<form class="login" id="loginForm" novalidate>
+    <h1 class="lockup" style="justify-content:flex-start"><span class="lk-serif" style="font-size:clamp(44px,13vw,58px)">Espace</span><span class="lk-script" style="font-size:clamp(30px,9vw,40px)">pro</span></h1>
+    <p class="muted" style="margin-top:14px">Connecte-toi pour voir tes rendez-vous et gérer tes disponibilités.</p>
+    <div class="field"><label for="l-email">E-mail</label><input class="in-text" id="l-email" type="email" autocomplete="username" inputmode="email" autocapitalize="off" required></div>
+    <div class="field"><label for="l-pass">Mot de passe</label><input class="in-text" id="l-pass" type="password" autocomplete="current-password" required></div>
+    ${msg ? `<p class="err">${esc(msg)}</p>` : ""}
+    <button class="btn primary" type="submit">Se connecter</button>
+  </form>`;
+}
+
+function contactHTML(c) {
+  if (!c) return "";
+  const t = String(c).trim();
+  if (/^\+?\d[\d\s.\-]{5,}$/.test(t)) return `<a href="tel:${esc(t.replace(/[\s.\-]/g, ""))}">${esc(t)}</a>`;
+  if (/^@?[a-z0-9._]{2,30}$/i.test(t)) { const h = t.replace(/^@/, ""); return `<a href="https://www.instagram.com/${encodeURIComponent(h)}/" target="_blank" rel="noopener">@${esc(h)}</a>`; }
+  return esc(t);
+}
+
+function renderAdmin() {
+  $("#admActs").innerHTML = `<a class="btn ghost small" href="#">Voir le site</a>` + (LIVE ? `<button class="btn ghost small" type="button" data-action="logout">Déconnexion</button>` : "");
+  const now = Date.now();
+  const today = dayKey(new Date());
+  const in7 = now + 7 * 864e5;
+  const booked = ADM.rows.filter(r => r.booking);
+  const nToday = booked.filter(r => dayKey(r.starts_at) === today).length;
+  const nWeek = booked.filter(r => { const t = new Date(r.starts_at).getTime(); return t >= now && t < in7; }).length;
+  const nToConfirm = booked.filter(r => r.booking.status === "reserve" && new Date(r.starts_at).getTime() >= now).length;
+  const nFree = ADM.rows.filter(r => !r.booking && new Date(r.starts_at).getTime() > now).length;
+
+  let h = `<section class="adm-hero"><h1 class="lockup"><span class="lk-serif">Mon</span><span class="lk-script">agenda</span></h1>`;
+  if (!LIVE) h += `<span class="badge-demo">Mode aperçu · données d'exemple sur cet appareil</span>`;
+  h += `</section>`;
+  h += `<section class="tiles" aria-label="Résumé">
+    <div class="tile"><b>${nToday}</b><span>rdv aujourd'hui</span></div>
+    <div class="tile"><b>${nWeek}</b><span>rdv sur 7 jours</span></div>
+    <button class="tile ${nToConfirm ? "alert" : ""}" type="button" data-action="filter" data-f="reserve"><b>${nToConfirm}</b><span>à confirmer la veille</span></button>
+    <button class="tile" type="button" data-action="filter" data-f="libres"><b>${nFree}</b><span>créneaux libres</span></button>
+  </section>`;
+  h += `<nav class="tabs" role="tablist" aria-label="Sections">
+    ${[["agenda", "Agenda"], ["dispos", "Disponibilités"], ["photos", "Photos"]].map(([k, l]) => `<button type="button" role="tab" aria-selected="${ADM.tab === k}" data-action="tab" data-t="${k}">${l}</button>`).join("")}
+  </nav>`;
+  h += `<section class="panel" id="admPanel">${ADM.loading ? `<p class="loading">Chargement…</p>` : ADM.err ? `<p class="err">${esc(ADM.err)}</p>` : panelHTML()}</section>`;
+  $("#admMain").innerHTML = h;
+}
+
+function panelHTML() {
+  if (ADM.tab === "agenda") return agendaHTML();
+  if (ADM.tab === "dispos") return disposHTML();
+  return photosHTML();
+}
+
+function agendaHTML() {
+  const now = Date.now();
+  const filters = [["tous", "Tout"], ["rdv", "Rendez-vous"], ["reserve", "À confirmer"], ["libres", "Libres"]];
+  let rows = ADM.rows;
+  if (ADM.filter === "rdv") rows = rows.filter(r => r.booking);
+  if (ADM.filter === "reserve") rows = rows.filter(r => r.booking && r.booking.status === "reserve");
+  if (ADM.filter === "libres") rows = rows.filter(r => !r.booking);
+  let h = `<div class="chips" role="group" aria-label="Filtrer">${filters.map(([k, l]) => `<button type="button" class="chip" aria-pressed="${ADM.filter === k}" data-action="filter" data-f="${k}">${l}</button>`).join("")}</div>`;
+  if (!rows.length) {
+    return h + `<div class="empty"><p>${ADM.rows.length ? "Rien dans ce filtre." : "Aucun créneau à venir."}</p><button class="btn primary small" type="button" data-action="tab" data-t="dispos">Ajouter des disponibilités</button></div>`;
+  }
+  const groups = [];
+  rows.forEach(r => { const k = dayKey(r.starts_at); let g = groups.find(x => x.k === k); if (!g) groups.push(g = { k, items: [] }); g.items.push(r); });
+  h += groups.map(g => {
+    const nb = g.items.filter(r => r.booking).length;
+    const label = g.k === dayKey(new Date()) ? "Aujourd'hui" : longDay(g.items[0].starts_at);
+    return `<div class="dayblock"><h3>${esc(label)}<small>${nb} rdv · ${g.items.length - nb} libre${g.items.length - nb > 1 ? "s" : ""}</small></h3>${g.items.map(r => slotHTML(r, now)).join("")}</div>`;
+  }).join("");
+  return h;
+}
+
+function slotHTML(r, now) {
+  const past = endOf(r).getTime() < now;
+  const hr = `<div class="hr">${hhmm(r.starts_at)}<small>→ ${hhmm(endOf(r))}</small></div>`;
+  if (!r.booking) {
+    return `<div class="slot free ${past ? "past" : ""}">${hr}<div class="bd"><span class="pill libre">Libre</span><button class="btn ghost small" type="button" data-action="del-slot" data-id="${r.id}">Supprimer</button></div></div>`;
+  }
+  const b = r.booking;
+  const st = b.status === "confirme" ? `<span class="pill confirme">Confirmé</span>` : `<span class="pill reserve">À confirmer</span>`;
+  let acts = "";
+  if (!past) {
+    acts = b.status === "confirme"
+      ? `<button class="btn ghost small" type="button" data-action="status" data-id="${b.id}" data-s="reserve">Remettre à confirmer</button>`
+      : `<button class="btn primary small" type="button" data-action="status" data-id="${b.id}" data-s="confirme">Elle a confirmé</button>`;
+    acts += `<button class="btn ghost small" type="button" data-action="cancel" data-id="${b.id}">Annuler le rdv</button>`;
+  }
+  return `<div class="slot ${past ? "past" : ""}">${hr}<div class="bd">
+    <div class="who"><strong>${esc(b.first_name)}</strong>${st}</div>
+    <div class="svc">${esc(b.service)} · <em>${esc(b.total)} €</em>${b.devis ? " + devis" : ""}</div>
+    ${b.message ? `<div class="msg">${esc(b.message)}</div>` : ""}
+    ${b.contact ? `<div class="ct">Contact : ${contactHTML(b.contact)}</div>` : `<div class="ct">Pas de contact laissé, elle doit t'écrire en DM</div>`}
+    ${acts ? `<div class="row-acts">${acts}</div>` : ""}
+  </div></div>`;
+}
+
+function disposHTML() {
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  const all = [...new Set([...PRESET_TIMES, ...ADM.customTimes])].sort();
+  const n = ADM.times.size;
+  return `<form class="form-card" id="dispoForm" novalidate>
+    <div class="field"><label for="d-date">Jour</label><input class="in-text" type="date" id="d-date" min="${ymd(new Date())}" value="${ADM.date || ymd(tomorrow)}"></div>
+    <div class="field"><span style="font-size:15px">Heures de début</span>
+      <div class="chips" role="group" aria-label="Heures">${all.map(t => `<button type="button" class="chip" aria-pressed="${ADM.times.has(t)}" data-action="toggle-time" data-t="${t}">${t.replace(":", "h")}</button>`).join("")}</div>
+    </div>
+    <div class="field"><label for="d-custom">Autre heure</label><div class="add-row"><input class="in-text" type="time" id="d-custom" step="900" value="16:00"><button class="btn ghost" type="button" data-action="add-time">Ajouter</button></div></div>
+    <div class="two">
+      <div class="field"><label for="d-dur">Durée</label><select class="in-text" id="d-dur">${[[60, "1 h"], [90, "1 h 30"], [120, "2 h"], [150, "2 h 30"], [180, "3 h"]].map(([v, l]) => `<option value="${v}" ${(ADM.dur || 120) == v ? "selected" : ""}>${l}</option>`).join("")}</select></div>
+      <div class="field"><label for="d-rep">Répéter</label><select class="in-text" id="d-rep">${[[1, "Ce jour seulement"], [2, "2 semaines"], [4, "4 semaines"], [8, "8 semaines"]].map(([v, l]) => `<option value="${v}" ${(ADM.rep || 1) == v ? "selected" : ""}>${l}</option>`).join("")}</select></div>
+    </div>
+    <p class="muted" style="font-size:14px">« Répéter » ajoute les mêmes heures le même jour de la semaine, les semaines suivantes.</p>
+    <button class="btn primary" type="submit" ${n ? "" : "disabled"}>${n ? `Ouvrir ${n} créneau${n > 1 ? "x" : ""}` : "Choisis au moins une heure"}</button>
+  </form>`;
+}
+
+function photosHTML() {
+  return `<div class="form-card">
+    <p>Tes ${POSES.length} poses Instagram sont déjà sur le site. Les photos que tu ajoutes ici passent en premier dans « Mes poses ».</p>
+    <label class="btn primary" for="ph-input" role="button">Ajouter des photos</label>
+    <input type="file" id="ph-input" accept="image/*" multiple hidden>
+    <p class="muted" id="ph-status" style="font-size:14px"></p>
+  </div>
+  ${ADM.photos.length ? `<div class="photo-grid">${ADM.photos.map(p => `<figure><img src="${esc(p.url)}" alt="Pose" loading="lazy"><button type="button" data-action="del-photo" data-n="${esc(p.name)}">Retirer</button></figure>`).join("")}</div>` : `<div class="empty"><p class="muted">Aucune photo ajoutée en plus pour l'instant.</p></div>`}`;
+}
+
+async function addDispos() {
+  const date = $("#d-date").value;
+  const dur = +$("#d-dur").value;
+  const rep = +$("#d-rep").value;
+  ADM.date = date; ADM.dur = dur; ADM.rep = rep;
+  if (!date) { toast("Choisis un jour", "bad"); return; }
+  const [y, m, d] = date.split("-").map(Number);
+  const list = [];
+  const now = Date.now();
+  for (let w = 0; w < rep; w++) {
+    [...ADM.times].sort().forEach(t => {
+      const [hh, mm] = t.split(":").map(Number);
+      const dt = new Date(y, m - 1, d + 7 * w, hh, mm);
+      if (dt.getTime() > now) list.push({ starts_at: dt.toISOString(), duration_min: dur });
+    });
+  }
+  if (!list.length) { toast("Ces horaires sont déjà passés", "bad"); return; }
+  const btn = $("#dispoForm button[type=submit]");
+  btn.disabled = true; btn.textContent = "Ajout…";
+  try {
+    await api.addSlots(list);
+    toast(list.length + " créneau" + (list.length > 1 ? "x ouverts" : " ouvert"));
+    ADM.times.clear();
+    await refreshAdmin();
+  } catch (e) {
+    console.error(e);
+    toast("L'ajout n'est pas passé. Réessaie.", "bad");
+    renderAdmin();
+  }
+}
+
+async function handlePhotos(files) {
+  const st = $("#ph-status");
+  let ok = 0;
+  for (let i = 0; i < files.length; i++) {
+    st.textContent = `Envoi ${i + 1}/${files.length}…`;
+    try {
+      const blob = await shrink(files[i], LIVE ? 1600 : 900, LIVE ? 0.86 : 0.78);
+      await api.uploadPhoto(blob);
+      ok++;
+    } catch (e) {
+      console.error(e);
+      toast(e.message === "FULL" ? "Plus de place en mode aperçu : retire une photo" : "Une photo n'a pas pu être ajoutée", "bad");
+      if (e.message === "FULL") break;
+    }
+  }
+  if (ok) toast(ok + " photo" + (ok > 1 ? "s ajoutées" : " ajoutée"));
+  await refreshAdmin();
+}
+
+/* ---------------- Événements ---------------- */
+document.addEventListener("click", async e => {
+  const el = e.target.closest("[data-action]");
+  if (!el) return;
+  const a = el.dataset.action;
+  switch (a) {
+    case "open-booking": openBooking(); break;
+    case "close-booking": closeBooking(); break;
+    case "back": if (B.step > 1 && B.step < 4) goStep(B.step - 1); break;
+    case "next":
+      if (B.step === 1 && B.presta) goStep(2);
+      else if (B.step === 2 && B.slot) goStep(3);
+      break;
+    case "pick-presta":
+      B.presta = el.dataset.id;
+      if (findPresta(B.presta).zone !== "mains") B.art = false;
+      renderSheet(); break;
+    case "toggle-french": B.french = !B.french; renderSheet(); break;
+    case "toggle-art": B.art = !B.art; renderSheet(); break;
+    case "pick-depose": B.depose = el.dataset.id; renderSheet(); break;
+    case "pick-day": B.day = el.dataset.k; B.slot = null; renderSheet(); break;
+    case "pick-slot": B.slot = el.dataset.id; renderSheet(); break;
+    case "reload-slots": loadSlotsForBooking(); break;
+    case "submit": submitBooking(); break;
+    case "zoom": { const p = galleryItems()[+el.dataset.i]; if (p) openLightbox(p.url, p.nom); break; }
+    // pro
+    case "tab": ADM.tab = el.dataset.t; renderAdmin(); break;
+    case "filter": ADM.tab = "agenda"; ADM.filter = el.dataset.f; renderAdmin(); break;
+    case "toggle-time": { const t = el.dataset.t; ADM.times.has(t) ? ADM.times.delete(t) : ADM.times.add(t); keepDispoInputs(); renderAdmin(); break; }
+    case "add-time": {
+      const v = $("#d-custom").value;
+      if (!/^\d{2}:\d{2}$/.test(v)) { toast("Choisis une heure", "bad"); break; }
+      if (!ADM.customTimes.includes(v)) ADM.customTimes.push(v);
+      ADM.times.add(v); keepDispoInputs(); renderAdmin(); break;
+    }
+    case "status":
+      el.disabled = true;
+      try { await api.setStatus(el.dataset.id, el.dataset.s); toast(el.dataset.s === "confirme" ? "Rdv confirmé" : "Remis à confirmer"); await refreshAdmin(); }
+      catch (err) { console.error(err); el.disabled = false; toast("Ça n'a pas marché, réessaie", "bad"); }
+      break;
+    case "cancel":
+      twoTap(el, "Sûre ? Appuie encore", async () => {
+        try { await api.setStatus(el.dataset.id, "annule"); toast("Rdv annulé, le créneau est de nouveau libre"); await refreshAdmin(); }
+        catch (err) { console.error(err); toast("Ça n'a pas marché, réessaie", "bad"); }
+      });
+      break;
+    case "del-slot":
+      twoTap(el, "Confirmer", async () => {
+        try { await api.deleteSlot(el.dataset.id); toast("Créneau supprimé"); await refreshAdmin(); }
+        catch (err) { console.error(err); toast("Ça n'a pas marché, réessaie", "bad"); }
+      });
+      break;
+    case "del-photo":
+      twoTap(el, "Sûre ?", async () => {
+        try { await api.deletePhoto(el.dataset.n); await refreshAdmin(); }
+        catch (err) { console.error(err); toast("Ça n'a pas marché, réessaie", "bad"); }
+      });
+      break;
+    case "logout": await api.signOut(); renderLogin(); break;
+  }
+});
+
+function keepDispoInputs() {
+  const d = $("#d-date"), du = $("#d-dur"), r = $("#d-rep");
+  if (d) ADM.date = d.value;
+  if (du) ADM.dur = +du.value;
+  if (r) ADM.rep = +r.value;
+}
+
+document.addEventListener("input", e => {
+  const id = e.target.id;
+  if (id === "f-prenom") { B.prenom = e.target.value; updateSubmit(); }
+  else if (id === "f-contact") B.contact = e.target.value;
+  else if (id === "f-message") B.message = e.target.value;
+});
+document.addEventListener("change", e => {
+  const id = e.target.id;
+  if (id === "f-rules") { B.rules = e.target.checked; updateSubmit(); }
+  else if (id === "ph-input" && e.target.files.length) handlePhotos([...e.target.files]);
+  else if (id === "d-date" || id === "d-dur" || id === "d-rep") keepDispoInputs();
+});
+document.addEventListener("submit", async e => {
+  e.preventDefault();
+  if (e.target.id === "dispoForm") { keepDispoInputs(); addDispos(); }
+  if (e.target.id === "loginForm") {
+    const btn = e.target.querySelector("button[type=submit]");
+    btn.disabled = true; btn.textContent = "Connexion…";
+    try { await api.signIn($("#l-email").value.trim(), $("#l-pass").value); showAdmin(); }
+    catch (err) { console.error(err); renderLogin("E-mail ou mot de passe incorrect."); }
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    const lb = $(".lightbox"); if (lb) { lb.remove(); return; }
+    if ($("#sheet").classList.contains("open")) closeBooking();
+  }
+});
+window.addEventListener("scroll", () => { $("#topbar").classList.toggle("scrolled", window.scrollY > 8); }, { passive: true });
+
+let resizeT;
+window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(drawPetals, 200); });
+
+/* ---------------- Navigation ---------------- */
+function route() {
+  if (location.hash === "#admin") { showAdmin(); return; }
+  $("#admin").hidden = true;
+  $("#public").hidden = false;
+  document.title = "Mkkly Nails";
+  if (location.hash === "#reserver") openBooking();
+}
+window.addEventListener("hashchange", () => { const wasAdmin = !$("#admin").hidden; route(); if (wasAdmin && location.hash !== "#admin") loadPublic(); });
+
+[$("#igTop"), $("#igMore"), $("#igFoot")].forEach(a => a && (a.href = IG_URL));
+$("#demoNote").hidden = LIVE;
+renderTarifs();
+drawPetals();
+route();
+loadPublic();
+if (LIVE) sb.auth.onAuthStateChange((ev) => { if (ev === "SIGNED_OUT" && location.hash === "#admin") renderLogin(); });
+</script>
+</body>
+</html>
