@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Mkkly Nails">
 <meta name="format-detection" content="telephone=no">
-<meta name="description" content="Réserve ta pose d'ongles avec Mkkly Nails : Gel X, French, semi-permanent pieds. Choisis ton créneau en ligne.">
+<meta name="description" content="Réserve ta pose d'ongles avec Mkkly Nails : gel, pose américaine, gainage, manucure russe. Choisis ton créneau en ligne.">
 <title>Mkkly Nails</title>
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-512.png">
@@ -111,6 +111,11 @@ main{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;padding-bottom:ca
 .prices{list-style:none;margin:0;padding:0}
 .prices li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
 .prices li:last-child{border-bottom:0}
+.prices li.head{border-bottom:0;padding-bottom:4px}
+.prices li.sub{border-bottom:0;padding:3px 0 3px 16px}
+.prices li.sub .n{font-size:13px;color:var(--ink-soft)}
+.prices li.sub .p{font-size:17px;color:var(--ink-soft)}
+.prices li.sub + li:not(.sub){border-top:1px solid var(--line);margin-top:9px}
 .prices .n{font:400 15px/1.35 var(--f-display);letter-spacing:.05em;text-transform:uppercase}
 .prices .p{font:italic 400 20px var(--f-display);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
 .card-foot{text-align:center;margin-top:26px;font-size:15px;color:var(--ink-soft)}
@@ -387,25 +392,18 @@ const CONFIG = {
 
 // Tes tarifs : change un prix ici et il change partout (carte + réservation).
 const TARIFS = {
-  mains: {
-    titre: "Beauté des mains",
-    poses: [ { id: "mains-gelx", nom: "Gel X couleur simple", prix: 40 } ],
-    french: 5,
-    nailArt: true,        // Nail art / 3D / chrome : sur devis
-  },
-  pieds: {
-    titre: "Beauté des pieds",
-    poses: [
-      { id: "pieds-semi", nom: "Vernis semi-permanent ongles naturels", prix: 20 },
-      { id: "pieds-gelx", nom: "Gel X", prix: 25 },
-    ],
-    french: 5,
-    nailArt: false,
-  },
+  titre: "Beauté des mains",
+  prestations: [
+    { id: "manucure-russe", nom: "Manucure russe", prix: 20 },
+    { id: "gainage", nom: "Gainage", prix: 25 },
+    { id: "americaine", nom: "Pose américaine couleur simple", prix: 30, options: true },
+    { id: "gel", nom: "Gel couleur simple", prix: 40, options: true },
+  ],
+  french: 5,              // option French (pose américaine et gel)
+  nailArt: 5,             // option nail art / 3D / chrome (pose américaine et gel)
   depose: {
     titre: "Dépose (pied/main) & suppléments",
-    avecPose: 5,          // dépose d'une pose faite par toi + nouvelle pose
-    exterieure: 10,       // dépose d'une pose faite ailleurs
+    avecPose: 10,         // dépose + nouvelle pose
     simple: 15,           // dépose sans nouvelle pose
   },
 };
@@ -495,9 +493,9 @@ const Demo = {
       });
     }
     const ts = new Date().toISOString();
-    if (slots[0]) bookings.push({ id: uid(), slot_id: slots[0].id, first_name: "Inès (exemple)", contact: "@ines.exemple", service: "Mains · Gel X couleur simple + French", total: 45, devis: false, message: "Forme amande, longueur moyenne, nude rosé 🤍", status: "confirme", created_at: ts });
-    if (slots[4]) bookings.push({ id: uid(), slot_id: slots[4].id, first_name: "Sarah (exemple)", contact: "06 12 34 56 78", service: "Pieds · Gel X · dépose extérieure", total: 35, devis: false, message: "", status: "reserve", created_at: ts });
-    if (slots[7]) bookings.push({ id: uid(), slot_id: slots[7].id, first_name: "Lina (exemple)", contact: "", service: "Mains · Gel X couleur simple + nail art/3D/chrome (devis)", total: 40, devis: true, message: "Chrome argenté sur 2 ongles", status: "reserve", created_at: ts });
+    if (slots[0]) bookings.push({ id: uid(), slot_id: slots[0].id, first_name: "Inès (exemple)", contact: "@ines.exemple", service: "Mains · Gel couleur simple + French", total: 45, devis: false, message: "Forme amande, longueur moyenne, nude rosé 🤍", status: "confirme", created_at: ts });
+    if (slots[4]) bookings.push({ id: uid(), slot_id: slots[4].id, first_name: "Sarah (exemple)", contact: "06 12 34 56 78", service: "Mains · Gainage · dépose + pose", total: 35, devis: false, message: "", status: "reserve", created_at: ts });
+    if (slots[7]) bookings.push({ id: uid(), slot_id: slots[7].id, first_name: "Lina (exemple)", contact: "", service: "Mains · Pose américaine couleur simple + nail art/3D/chrome", total: 35, devis: false, message: "Chrome argenté sur 2 ongles", status: "reserve", created_at: ts });
     return { slots, bookings, photos: [] };
   },
 };
@@ -610,33 +608,30 @@ async function shrink(file, max, q) {
 
 /* ---------------- Tarifs & prestations ---------------- */
 const PRESTAS = [
-  ...TARIFS.mains.poses.map(p => ({ ...p, zone: "mains" })),
-  ...TARIFS.pieds.poses.map(p => ({ ...p, zone: "pieds" })),
+  ...TARIFS.prestations.map(p => ({ ...p, zone: "mains" })),
   { id: "depose-simple", nom: "Dépose simple (sans pose derrière)", prix: TARIFS.depose.simple, zone: "depose" },
 ];
 const DEPOSE_OPTS = [
   { id: "aucune", nom: "Non, ongles nus", court: "", prix: 0 },
-  { id: "maison", nom: "Oui, une pose faite par moi", court: "dépose + pose", prix: TARIFS.depose.avecPose },
-  { id: "ext", nom: "Oui, une pose faite ailleurs", court: "dépose extérieure", prix: TARIFS.depose.exterieure },
+  { id: "oui", nom: "Oui, j'ai une pose à retirer", court: "dépose + pose", prix: TARIFS.depose.avecPose },
 ];
-const ZONE = { mains: "Mains", pieds: "Pieds", depose: "Dépose" };
+const ZONE = { mains: "Mains", depose: "Dépose" };
 const findPresta = id => PRESTAS.find(p => p.id === id);
 
 function renderTarifs() {
-  const row = (n, p) => `<li><span class="n">${esc(n)}</span><span class="p">${esc(p)}</span></li>`;
-  const block = z => {
-    const t = TARIFS[z];
-    let h = `<p class="label">${esc(t.titre)}</p><ul class="prices">`;
-    t.poses.forEach(p => (h += row(p.nom, p.prix + " €")));
-    if (t.french) h += row("French", "+" + t.french + " €");
-    if (t.nailArt) h += row("Nail art / 3D / chrome", "sur devis");
-    return h + "</ul>";
-  };
+  const row = (n, p, cls = "") => `<li${cls ? ` class="${cls}"` : ""}><span class="n">${esc(n)}</span><span class="p">${esc(p)}</span></li>`;
+  let h = `<p class="label">${esc(TARIFS.titre)}</p><ul class="prices">`;
+  TARIFS.prestations.forEach(p => {
+    h += row(p.nom, p.prix + " €", p.options ? "head" : "");
+    if (p.options) {
+      h += row("French", "+" + TARIFS.french + " €", "sub");
+      h += row("Nail art / 3D / chrome", "+" + TARIFS.nailArt + " €", "sub");
+    }
+  });
   const d = TARIFS.depose;
-  $("#tarifsBody").innerHTML = block("mains") + block("pieds") +
+  $("#tarifsBody").innerHTML = h + "</ul>" +
     `<p class="label">${esc(d.titre)}</p><ul class="prices">` +
-    row("Dépose + pose", "+" + d.avecPose + " €") +
-    row("Dépose extérieure", "+" + d.exterieure + " €") +
+    row("Dépose + pose", d.avecPose + " €") +
     row("Dépose simple (sans pose derrière)", d.simple + " €") + "</ul>";
 }
 
@@ -732,19 +727,20 @@ function total() {
   if (!p) return 0;
   let t = p.prix;
   if (p.zone !== "depose") {
-    if (B.french) t += TARIFS[p.zone].french;
+    if (p.options && B.french) t += TARIFS.french;
+    if (p.options && B.art) t += TARIFS.nailArt;
     t += (DEPOSE_OPTS.find(d => d.id === B.depose) || {}).prix || 0;
   }
   return t;
 }
-const hasDevis = () => { const p = findPresta(B.presta); return !!(p && p.zone === "mains" && B.art); };
+const hasDevis = () => false;
 function serviceLabel() {
   const p = findPresta(B.presta);
   if (!p) return "";
   let s = ZONE[p.zone] + " · " + p.nom;
   if (p.zone !== "depose") {
-    if (B.french) s += " + French";
-    if (hasDevis()) s += " + nail art/3D/chrome (devis)";
+    if (p.options && B.french) s += " + French";
+    if (p.options && B.art) s += " + nail art/3D/chrome";
     const d = DEPOSE_OPTS.find(x => x.id === B.depose);
     if (d && d.court) s += " · " + d.court;
   }
@@ -805,15 +801,15 @@ function renderSheet() {
     const opt = (x) => `<button type="button" class="opt" role="radio" aria-checked="${B.presta === x.id}" data-action="pick-presta" data-id="${x.id}"><span class="mark"></span><span class="t">${esc(x.nom)}</span><span class="pr">${x.prix} €</span></button>`;
     let h = `<div class="q"><h3>Qu'est-ce qu'on fait ?</h3><div class="stack" role="radiogroup" aria-label="Prestation">`;
     h += `<p class="group-label">Mains</p>` + PRESTAS.filter(x => x.zone === "mains").map(opt).join("");
-    h += `<p class="group-label">Pieds</p>` + PRESTAS.filter(x => x.zone === "pieds").map(opt).join("");
     h += `<p class="group-label">Dépose seule</p>` + PRESTAS.filter(x => x.zone === "depose").map(opt).join("");
     h += `</div></div>`;
     if (p && p.zone !== "depose") {
-      const z = TARIFS[p.zone];
-      h += `<div class="q"><h3>Options</h3><div class="stack">`;
-      h += `<button type="button" class="opt box" aria-pressed="${B.french}" data-action="toggle-french"><span class="mark"></span><span class="t">French</span><span class="pr">+${z.french} €</span></button>`;
-      if (z.nailArt) h += `<button type="button" class="opt box" aria-pressed="${B.art}" data-action="toggle-art"><span class="mark"></span><span class="t">Nail art / 3D / chrome<small>Prix sur devis, décris-le dans ton message</small></span><span class="pr">devis</span></button>`;
-      h += `</div></div>`;
+      if (p.options) {
+        h += `<div class="q"><h3>Options</h3><div class="stack">`;
+        h += `<button type="button" class="opt box" aria-pressed="${B.french}" data-action="toggle-french"><span class="mark"></span><span class="t">French</span><span class="pr">+${TARIFS.french} €</span></button>`;
+        h += `<button type="button" class="opt box" aria-pressed="${B.art}" data-action="toggle-art"><span class="mark"></span><span class="t">Nail art / 3D / chrome<small>Décris ce que tu veux dans ton message</small></span><span class="pr">+${TARIFS.nailArt} €</span></button>`;
+        h += `</div></div>`;
+      }
       h += `<div class="q"><h3>Tu as déjà une pose ?</h3><p class="hint">Si oui, je la retire avant ta nouvelle pose.</p><div class="stack" role="radiogroup" aria-label="Dépose">`;
       h += DEPOSE_OPTS.map(d => `<button type="button" class="opt" role="radio" aria-checked="${B.depose === d.id}" data-action="pick-depose" data-id="${d.id}"><span class="mark"></span><span class="t">${esc(d.nom)}</span><span class="pr">${d.prix ? "+" + d.prix + " €" : ""}</span></button>`).join("");
       h += `</div></div>`;
@@ -1134,7 +1130,7 @@ document.addEventListener("click", async e => {
       break;
     case "pick-presta":
       B.presta = el.dataset.id;
-      if (findPresta(B.presta).zone !== "mains") B.art = false;
+      if (!findPresta(B.presta).options) { B.art = false; B.french = false; }
       renderSheet(); break;
     case "toggle-french": B.french = !B.french; renderSheet(); break;
     case "toggle-art": B.art = !B.art; renderSheet(); break;
