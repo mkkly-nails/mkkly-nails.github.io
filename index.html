@@ -115,6 +115,10 @@ main{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;padding-bottom:ca
 .prices li.sub{border-bottom:0;padding:3px 0 3px 16px}
 .prices li.sub .n{font-size:13px;color:var(--ink-soft)}
 .prices li.sub .p{font-size:17px;color:var(--ink-soft)}
+.duo{margin:30px 0 4px;padding:18px 16px 16px;border:1px solid var(--line);border-radius:22px;background:rgba(250,248,245,.55);display:grid;justify-items:center;gap:2px;text-align:center}
+.duo-script{font:400 34px/1 var(--f-script)}
+.duo-what{font:400 15px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.duo-price{font:italic 400 30px var(--f-display);font-variant-numeric:lining-nums}
 .prices li.sub + li:not(.sub){border-top:1px solid var(--line);margin-top:9px}
 .prices .n{font:400 15px/1.35 var(--f-display);letter-spacing:.05em;text-transform:uppercase}
 .prices .p{font:italic 400 20px var(--f-display);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
@@ -392,14 +396,24 @@ const CONFIG = {
 
 // Tes tarifs : change un prix ici et il change partout (carte + réservation).
 const TARIFS = {
-  titre: "Beauté des mains",
-  prestations: [
-    { id: "manucure-russe", nom: "Manucure russe", prix: 20 },
-    { id: "gainage", nom: "Gainage", prix: 25 },
-    { id: "americaine", nom: "Pose américaine couleur simple", prix: 30, options: true },
-    { id: "gel", nom: "Gel couleur simple", prix: 40, options: true },
-    { id: "remplissage", nom: "Remplissage", prix: 35, options: true },
-  ],
+  mains: {
+    titre: "Beauté des mains",
+    prestations: [
+      { id: "manucure-russe", nom: "Manucure russe", prix: 20 },
+      { id: "gainage", nom: "Gainage", prix: 25 },
+      { id: "americaine", nom: "Pose américaine couleur simple", prix: 30, options: true },
+      { id: "gel", nom: "Gel couleur simple", prix: 40, options: true },
+      { id: "remplissage", nom: "Remplissage", prix: 35, options: true },
+    ],
+  },
+  pieds: {
+    titre: "Beauté des pieds",
+    prestations: [
+      { id: "pieds-semi", nom: "Vernis semi-permanent ongles naturels", prix: 20 },
+      { id: "pieds-gainage", nom: "Gainage / Gel X (rallongement)", prix: 30 },
+    ],
+  },
+  duo: { id: "duo", nom: "Offre duo pied + main", prix: 60 },
   deco: 5,                // option French / nail art / 3D / chrome (pose américaine, gel, remplissage)
   depose: {
     titre: "Dépose (pied/main) & suppléments",
@@ -608,25 +622,31 @@ async function shrink(file, max, q) {
 
 /* ---------------- Tarifs & prestations ---------------- */
 const PRESTAS = [
-  ...TARIFS.prestations.map(p => ({ ...p, zone: "mains" })),
+  ...TARIFS.mains.prestations.map(p => ({ ...p, zone: "mains" })),
+  ...TARIFS.pieds.prestations.map(p => ({ ...p, zone: "pieds" })),
+  { ...TARIFS.duo, zone: "duo" },
   { id: "depose-simple", nom: "Dépose simple (sans pose derrière)", prix: TARIFS.depose.simple, zone: "depose" },
 ];
 const DEPOSE_OPTS = [
   { id: "aucune", nom: "Non, ongles nus", court: "", prix: 0 },
   { id: "oui", nom: "Oui, j'ai une pose à retirer", court: "dépose + pose", prix: TARIFS.depose.avecPose },
 ];
-const ZONE = { mains: "Mains", depose: "Dépose" };
+const ZONE = { mains: "Mains", pieds: "Pieds", duo: "Duo", depose: "Dépose" };
 const findPresta = id => PRESTAS.find(p => p.id === id);
 
 function renderTarifs() {
   const row = (n, p, cls = "") => `<li${cls ? ` class="${cls}"` : ""}><span class="n">${esc(n)}</span><span class="p">${esc(p)}</span></li>`;
-  let h = `<p class="label">${esc(TARIFS.titre)}</p><ul class="prices">`;
-  TARIFS.prestations.forEach(p => {
-    h += row(p.nom, p.prix + " €", p.options ? "head" : "");
-    if (p.options) h += row("French / nail art / 3D / chrome", "+" + TARIFS.deco + " €", "sub");
-  });
+  const block = z => {
+    let h = `<p class="label">${esc(TARIFS[z].titre)}</p><ul class="prices">`;
+    TARIFS[z].prestations.forEach(p => {
+      h += row(p.nom, p.prix + " €", p.options ? "head" : "");
+      if (p.options) h += row("French / nail art / 3D / chrome", "+" + TARIFS.deco + " €", "sub");
+    });
+    return h + "</ul>";
+  };
   const d = TARIFS.depose;
-  $("#tarifsBody").innerHTML = h + "</ul>" +
+  $("#tarifsBody").innerHTML = block("mains") + block("pieds") +
+    `<div class="duo"><span class="duo-script">Offre duo</span><span class="duo-what">pied + main</span><span class="duo-price">${TARIFS.duo.prix} €</span></div>` +
     `<p class="label">${esc(d.titre)}</p><ul class="prices">` +
     row("Dépose + pose", d.avecPose + " €") +
     row("Dépose simple (sans pose derrière)", d.simple + " €") + "</ul>";
@@ -793,10 +813,12 @@ function renderSheet() {
 
   if (B.step === 1) {
     const p = findPresta(B.presta);
-    const opt = (x) => `<button type="button" class="opt" role="radio" aria-checked="${B.presta === x.id}" data-action="pick-presta" data-id="${x.id}"><span class="mark"></span><span class="t">${esc(x.nom)}</span><span class="pr">${x.prix} €</span></button>`;
+    const opt = (x, sub = "") => `<button type="button" class="opt" role="radio" aria-checked="${B.presta === x.id}" data-action="pick-presta" data-id="${x.id}"><span class="mark"></span><span class="t">${esc(x.nom)}${sub ? `<small>${esc(sub)}</small>` : ""}</span><span class="pr">${x.prix} €</span></button>`;
     let h = `<div class="q"><h3>Qu'est-ce qu'on fait ?</h3><div class="stack" role="radiogroup" aria-label="Prestation">`;
-    h += `<p class="group-label">Mains</p>` + PRESTAS.filter(x => x.zone === "mains").map(opt).join("");
-    h += `<p class="group-label">Dépose seule</p>` + PRESTAS.filter(x => x.zone === "depose").map(opt).join("");
+    h += `<p class="group-label">Mains</p>` + PRESTAS.filter(x => x.zone === "mains").map(x => opt(x)).join("");
+    h += `<p class="group-label">Pieds</p>` + PRESTAS.filter(x => x.zone === "pieds").map(x => opt(x)).join("");
+    h += `<p class="group-label">Offre duo</p>` + PRESTAS.filter(x => x.zone === "duo").map(x => opt({ ...x, nom: "Pied + main" }, "Précise tes poses dans ton message")).join("");
+    h += `<p class="group-label">Dépose seule</p>` + PRESTAS.filter(x => x.zone === "depose").map(x => opt(x)).join("");
     h += `</div></div>`;
     if (p && p.zone !== "depose") {
       if (p.options) {
